@@ -22,7 +22,6 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories("spring.repository")
 @PropertySource("classpath:application.properties")
 @ComponentScan("spring")
 @EnableTransactionManagement

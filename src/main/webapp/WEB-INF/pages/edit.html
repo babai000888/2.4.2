@@ -5,26 +5,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Add new User</h1>
-<form action="#" th:action="@{/form}" th:object="${form}" method="post">
+<h1>Edit User</h1>
+<form action="#" th:action="@{/edit}" th:object="${user}" method="post">
     <table>
         <tbody>
         <tr>
+            <td>Modify User's data: </td>
+            <td>
+                <input type="hidden" placeholder="*{id}" th:field="*{id}" />
+            </td>
+        </tr>
+        <tr>
             <td>NAME:</td>
             <td>
-                <input type="text" th:field="*{name}" />
+                <input type="text" placeholder="*{name}" th:field="*{name}" />
             </td>
         </tr>
         <tr>
             <td>LAST NAME</td>
             <td>
-                <input type="text" th:field="*{lastName}" />
+                <input type="text" placeholder="*{lastName}" th:field="*{lastName}" />
             </td>
         </tr>
         <tr>
             <td>AGE</td>
             <td>
-                <input type="text" th:field="*{age}" />
+                <input type="text" placeholder="*{age}" th:field="*{age}" />
             </td>
         </tr>
         <tr>

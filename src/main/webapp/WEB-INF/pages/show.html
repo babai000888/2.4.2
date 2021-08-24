@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>userList</title>
+</head>
+<body>
+<br/>
+<h1> TABLE of USERS </h1>
+<div>
+    <div>
+        <a href="/form" th:href="@{/form}" class="btn btn-info">Add new User</a>
+    </div>
+</div>
+<br/><br/>
+<div>
+    <table th:border="1">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="user : ${users}">
+            <th scope="row" th:text="${user.getId()}">1</th>
+            <td th:text="${user.getName()}">name</td>
+            <td th:text="${user.getLastName()}">lastName</td>
+            <td th:text="${user.getAge()}">100</td>
+            <td><a th:href="@{/show(id=${user.id})}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>User Table</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>USER TABLE</h1>-->
+<!--<a href="form">Add new User</a>-->
+<!--<br/><br/>-->
+<!--<div class="with:80%">-->
+<!--    <table class="table table-hover">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>USER ID</th>-->
+<!--            <th>NAME</th>-->
+<!--            <th>LAST NAME</th>-->
+<!--            <th>AGE</th>-->
+<!--            <th>Delete</th>-->
+<!--        </tr>-->
+<!--        <tr th:each ="user : ${users}">-->
+<!--            <td th:utext="${user.getId()}">...</td>-->
+<!--            <td th:utext="${user.getName()}">...</td>-->
+<!--            <td th:utext="${user.getLastName()}">...</td>-->
+<!--            <td th:utext="${user.getAge()}">...</td>-->
+<!--            <td><a th:href="@{/delete(id=${user.getId()})}">delete</a></td>-->
+<!--&lt;!&ndash;            <td >&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{delete}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="hidden" name="id" th:value="${user.getId()}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="submit" value="Delete" class="btn btn-danger" />&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            </td>&ndash;&gt;-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
+<!--</body>-->

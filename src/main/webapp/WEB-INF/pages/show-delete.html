@@ -9,7 +9,7 @@
 <h1> TABLE of USERS </h1>
 <div>
     <div>
-        <a href="/form" th:href="@{/form}" class="btn btn-info">Add new User</a>
+        <a th:href="@{/add}" class="btn btn-info">Add new User</a>
     </div>
 </div>
 <br/><br/>
@@ -29,7 +29,7 @@
             <td th:text="${user.getName()}">name</td>
             <td th:text="${user.getLastName()}">lastName</td>
             <td th:text="${user.getAge()}">100</td>
-            <td><a th:href="@{/show(id=${user.id})}">Delete</a></td>
+            <td><a th:href="@{/delete(id=${user.id})}">Delete</a></td>
             <td><a th:href="@{/edit(id=${user.id})}">Edit</a></td>
         </tr>
         </tbody>

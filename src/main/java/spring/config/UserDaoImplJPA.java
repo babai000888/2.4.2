@@ -25,7 +25,7 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 @ComponentScan("spring")
 @EnableTransactionManagement
-public class JPAConfig {
+public class UserDaoImplJPA {
 
     @Autowired
     private Environment env;

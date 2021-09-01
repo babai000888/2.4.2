@@ -8,9 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="2.4.2.springSecurity" />
-        <module name="2.4.2.springSecurity_back" />
-        <module name="2.4.1.springSecurity" />
         <module name="2.4.2.new" />
+        <module name="2.4.2.springSecurity_back" />
+        <module name="2.4.2" />
+        <module name="2.4.1.springSecurity" />
         <module name="2.4.2.git" />
         <module name="2.3.1.springMVC" />
       </profile>

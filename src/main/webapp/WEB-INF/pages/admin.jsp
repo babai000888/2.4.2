@@ -10,6 +10,8 @@
 <div>
     <div>
         <a th:href="@{/add}" class="btn btn-info">Add new User</a>
+        <p></p>
+        <a th:href="@{/roles}" class="btn btn-info">Manage Roles</a>
     </div>
 </div>
 <br/><br/>
@@ -17,18 +19,22 @@
     <table th:border="1">
         <thead>
         <tr>
-            <th>#</th>
+            <th>User ID</th>
             <th>User Name</th>
+            <th>Password</th>
             <th>Last Name</th>
             <th>Age</th>
+            <th>Roles</th>
         </tr>
         </thead>
         <tbody>
         <tr  th:each="user : ${users}">
             <th scope="row" th:text="${user.getId()}">1</th>
             <td th:text="${user.getName()}">name</td>
+            <td th:text="${user.getPassword()}">password</td>
             <td th:text="${user.getLastName()}">lastName</td>
-            <td th:text="${user.getAge()}">100</td>
+            <td th:text="${user.getAge()}">age</td>
+            <td th:text="${user.getRoles()}">roles</td>
             <td><a th:href="@{/delete(id=${user.id})}">Delete</a></td>
             <td><a th:href="@{/edit(id=${user.id})}">Edit</a></td>
         </tr>

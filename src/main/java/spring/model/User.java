@@ -1,78 +1,105 @@
 package spring.model;
 
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
+@Table(name = "users")
 @Entity
-public class User {
-
+@NamedEntityGraph(name = "User.roles", attributeNodes = @NamedAttributeNode("roles"))
+public class User implements UserDetails {
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String name; // уникальное значение
+    private String password;
     private String lastName;
     private int age;
+    @ManyToMany
+    @JoinTable(name = "user_role"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-    public User(String name, String lastName, int age) {
+    public User(String name, String password, String lastName, int age) {
         this.name = name;
+        this.password = password;
         this.lastName = lastName;
         this.age = age;
     }
 
-    public User() {}
-
-    public Long getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public String getName() {
+    @Override
+    public String getUsername() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName);
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name, lastName, age);
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                '}';
+    public boolean isEnabled() {
+        return true;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+
+//    public String getRolesToString() {
+//        StringBuilder sb = new StringBuilder("ROLES");
+//        System.out.println("AAAAAAAAAAAAAAAA");
+//        System.out.println("name   " + name);
+//        System.out.println("ROLES    "+ getLastName());
+// //       roles.stream().forEach(x -> sb.append("{").append(x.getRole()).append("}"));
+////        System.out.println("RRRRRRRRROLES" + sb.toString());
+//        return sb.toString();
+//    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+
+
 }

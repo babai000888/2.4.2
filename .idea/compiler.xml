@@ -2,10 +2,16 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="2.4.2.springSecurity" />
+        <module name="2.4.2.springSecurity_back" />
+        <module name="2.4.1.springSecurity" />
+        <module name="2.4.2.new" />
+        <module name="2.4.2.git" />
         <module name="2.3.1.springMVC" />
       </profile>
     </annotationProcessing>

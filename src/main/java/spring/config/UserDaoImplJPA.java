@@ -24,6 +24,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:application.properties")
 @ComponentScan("spring")
+@EnableJpaRepositories("spring.repository")
 @EnableTransactionManagement
 public class UserDaoImplJPA {
 

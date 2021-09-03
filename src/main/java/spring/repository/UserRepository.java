@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
     Optional<User> findUserByName (String name);
     @EntityGraph(value = "User.roles")
     List<User> getAllByIdIsNotNull();
+    @EntityGraph(value = "User.roles")
+    Optional<User> findUserByIdIsNotNull();
 }

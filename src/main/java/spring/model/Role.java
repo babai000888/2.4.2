@@ -17,35 +17,23 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode (exclude = {"role"})
-@ToString
 @Table(name = "roles")
 @Entity
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "rol")
+    @Column(name = "roles")
     private String role;
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_role"
-//            , joinColumns = @JoinColumn(name = "role_id")
-//            , inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    private Set<User> users;
-
 
     public Role(String role) {
         this.role = role;
     }
 
-
-    public Role(Long id) {
-        this.id = id;
-    }
+    @Override
+    public String toString() { return this.role; }
 
     @Override
-    public String getAuthority() {
-        return role;
-    }
-
+    public String getAuthority() { return role; }
 }
 

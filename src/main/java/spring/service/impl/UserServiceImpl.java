@@ -1,12 +1,13 @@
-package spring.service;
+package spring.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spring.dao.UserDAO;
+import spring.dao.UserDao;
 import spring.model.Role;
 import spring.model.User;
+import spring.service.UserService;
 
 import java.util.List;
 
@@ -15,34 +16,22 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserDAO dao;
+    UserDao dao;
 
     @Override
     public List<User> getAll() { return dao.getAll(); }
 
     @Override
-    public void add(User user) { dao.add(user); }
+    public void add (User user, List<Long> id) { dao.add(user,id); }
 
     @Override
-    public void update(User user) { dao.update(user);}
+    public void save(User user, List<Long> id) { dao.save(user,id); }
 
     @Override
     public User getUserById(Long id) { return dao.getUserById(id); }
 
     @Override
     public void delete(Long id) { dao.delete(id); }
-
-//    @Override
-//    public void delete(String name) { dao.delete(name); }
-
-    @Override
-    public List<Role> getAllRoles() { return dao.getAllRoles(); }
-
-    @Override
-    public void deleteRole(Long id) { dao.deleteRole(id); }
-
-    @Override
-    public void addRole(String role) { dao.addRole(role); }
 
 
 }

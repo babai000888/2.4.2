@@ -14,9 +14,6 @@ import java.util.*;
 @Component
 public class RoleDaoImpJPA implements RoleDao {
 
-    @PersistenceContext(unitName = "entityManagerFactory")
-    private EntityManager entityManager;
-
     @Autowired
     UserRepository userRepository;
 

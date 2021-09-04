@@ -12,6 +12,10 @@
         <a th:href="@{/add}" class="btn btn-info">Add new User</a>
         <p></p>
         <a th:href="@{/roles}" class="btn btn-info">Manage Roles</a>
+        <p></p>
+        <sec:authorize access="isAuthenticated()">
+            <h4><a href="/logout">Logout</a></h4>
+        </sec:authorize>
     </div>
 </div>
 <br/><br/>

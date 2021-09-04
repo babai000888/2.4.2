@@ -1,9 +1,11 @@
 package spring.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import spring.dao.UserDao;
+import spring.model.Role;
 import spring.model.User;
 import spring.repository.RoleRepository;
 import spring.repository.UserRepository;
@@ -15,9 +17,6 @@ import java.util.*;
 
 @Component
 public class UserDaoImpJPA implements UserDao {
-
-    @PersistenceContext(unitName = "entityManagerFactory")
-    private EntityManager entityManager;
 
     @Autowired
     UserRepository userRepository;
@@ -56,7 +55,7 @@ public class UserDaoImpJPA implements UserDao {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.findUserByIdIsNotNull().orElse(null);
+        return userRepository.getUserByIdOrId(id,id).orElse(null);
     }
 
     @Override

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>ROLES</title>
@@ -8,6 +8,14 @@
 <br/>
 <h1> ROLES </h1>
 <br/><br/>
+
+
+<div>
+    <div>
+        <a th:href="@{/admin}" class="btn btn-info">back to admin</a>
+    </div>
+</div>
+<br>
 <div>
     <table th:border="1">
         <thead>

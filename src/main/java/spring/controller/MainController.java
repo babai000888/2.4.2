@@ -1,7 +1,7 @@
 package spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import spring.model.User;
@@ -11,8 +11,8 @@ import spring.service.UserService;
 
 import java.util.List;
 
-@Controller
-public class UserController {
+@org.springframework.stereotype.Controller
+public class MainController {
 
     @Autowired
     private UserService userService;
@@ -20,9 +20,26 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    // Admin page + delete user
+    User user = new User();
+
+    //Start page
 
     @GetMapping("/")
+    public String startPage() {
+        return "index";
+    }
+
+    //User Page
+
+    @GetMapping("/user")
+    public String userPage(Model model) {
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return "user";
+    }
+
+    // Admin page + delete user
+
+    @GetMapping("/admin")
     public String getUsers(Model model) {
         model.addAttribute("users", userService.getAll());
         return "admin";
@@ -31,7 +48,7 @@ public class UserController {
     @GetMapping("/delete")
     private String deleteUser( Long id ) {
         userService.delete(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     // Add new user page
@@ -41,31 +58,32 @@ public class UserController {
         model.addAttribute(new User());
         model.addAttribute("listRoles", roleService.getAllRoles());
         model.addAttribute("action", "addUser");
-        return "user_form";
+        return "admin/user_form";
     }
 
     @PostMapping("/addUser")
     public String addUser (User user, @RequestParam(value = "checkedRoles"
             , required = false) List<Long> id) {
         userService.add(user,id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     // Edit user page
 
     @GetMapping("/edit")
     private String editUser (Model model, Long id) {
+        System.out.println(userService.getUserById(id).toString());
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("listRoles", roleService.getAllRoles());
         model.addAttribute("action", "editUser");
-        return "edit_form";
+        return "admin/user_form";
     }
 
     @PostMapping("/editUser")
     public String updateUser(User user, @RequestParam(value = "checkedRoles"
             , required = false) List<Long> id) {
         userService.save(user,id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 // Edit roles page
@@ -74,7 +92,7 @@ public class UserController {
     public String editRoles(Model model) {
         model.addAttribute("roles", roleService.getAllRoles());
         model.addAttribute("newRole", new Role());
-        return "roles";
+        return "admin/roles";
     }
 
     @GetMapping("/deleteRole")

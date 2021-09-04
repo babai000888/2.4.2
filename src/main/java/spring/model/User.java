@@ -32,7 +32,10 @@ public class User implements UserDetails {
     @ManyToMany
     private Set<Role> roles = new HashSet<>();
 
-
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return roles; }
@@ -54,10 +57,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() { return true; }
-
-//    public void setPassword(String password) { this.password = password; }
-
- //   public Set<Role> getRoles() { return roles; }
 
     public void addRole(Role role) { this.roles.add(role); }
 

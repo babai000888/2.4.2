@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode (exclude = {"role"})
+@EqualsAndHashCode (of = "id")
 @Table(name = "roles")
 @Entity
 public class Role implements GrantedAuthority {
@@ -26,6 +26,12 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Column(name = "roles")
     private String role;
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    Set<User> users;
 
     public Role(String role) {
         this.role = role;

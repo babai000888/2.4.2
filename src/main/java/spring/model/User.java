@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @ToString
 @Entity
 @NamedEntityGraph(name = "User.roles", attributeNodes = @NamedAttributeNode("roles"))
@@ -30,12 +30,11 @@ public class User implements UserDetails {
     private String lastName;
     private int age;
     @ManyToMany
-    private Set<Role> roles = new HashSet<>();
-
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return roles; }
@@ -58,8 +57,8 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() { return true; }
 
-    public void addRole(Role role) { this.roles.add(role); }
-
-
-
+    public void addRole(Role role) {
+        if(this.roles ==null) { this.roles = new HashSet<>(); }
+        this.roles.add(role);
+    }
 }

@@ -6,13 +6,12 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import spring.model.User;
-import spring.repository.RoleRepository;
 import spring.repository.UserRepository;
 import spring.service.RoleService;
 import spring.service.UserService;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class SetupDataLoader implements
@@ -26,18 +25,28 @@ public class SetupDataLoader implements
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        System.out.println("*********************************************");
+        roleService.addRoleByName("ROLE_ADMIN");
+        roleService.addRoleByName("ROLE_USER");
 
-        roleService.addRole("ROLE_ADMIN");
-        roleService.addRole("ROLE_USER");
+        User admin = new User();
+ //       admin.setId(1L);
+        admin.setName("admin");
+        admin.setPassword("admin");
+ //       admin.setLastName("INIT");
+//        admin.setAge(50);
+        admin.setRoles(Set.of(roleService.getRoleByName("ROLE_ADMIN"),roleService.getRoleByName("ROLE_USER")));
+        System.out.println(admin);
+        userService.saveUser(admin);
 
-        User admin = new User("admin","admin");
-        userService.save(admin, List.of(roleService.getRoleByName("ROLE_ADMIN").getId()
-                                        ,roleService.getRoleByName("ROLE_USER").getId()));
-        User user = new User("user","user");
-        userService.save(user, List.of(roleService.getRoleByName("ROLE_USER").getId()));
+        User user = new User();
+        user.setName("user");
+        user.setPassword("user");
+        user.setRoles(Set.of(roleService.getRoleByName("ROLE_USER")));
+        userService.saveUser(user);
 
         System.out.println("==========================================================");
-        System.out.println(user + "\n" +admin);
+        System.out.println(admin + "\n" + user);
         System.out.println("==========================================================");
     }
 }

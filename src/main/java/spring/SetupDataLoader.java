@@ -25,7 +25,6 @@ public class SetupDataLoader implements
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        System.out.println("*********************************************");
         roleService.addRoleByName("ROLE_ADMIN");
         roleService.addRoleByName("ROLE_USER");
 

@@ -63,8 +63,10 @@ public class MainController {
     @PostMapping("/addUser")
     public String addUser (User user, @RequestParam(value = "checkedRoles"
             , required = false) List<Long> roleIds) {
-        for (Long roleId: roleIds) {
-           user.addRole(roleService.getRoleById(roleId));
+        if(roleIds !=null) {
+            for (Long roleId : roleIds) {
+                user.addRole(roleService.getRoleById(roleId));
+            }
         }
         userService.addUser(user);
         return "redirect:/admin";
@@ -84,8 +86,10 @@ public class MainController {
     @PostMapping("/editUser")
     public String updateUser(User user, @RequestParam(value = "checkedRoles"
             , required = false) List<Long> roleIds) {
-        for (Long roleId: roleIds) {
-            user.addRole(roleService.getRoleById(roleId));
+        if(roleIds != null) {
+            for (Long roleId : roleIds) {
+                user.addRole(roleService.getRoleById(roleId));
+            }
         }
         userService.saveUser(user);
         return "redirect:/admin";

@@ -32,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     private User encodePassword(User user) {
+        if(user.getId() != null) System.out.println(userRepository.findById(user.getId()).orElse(null).getPassword());
+        if(user.getId() == null || user.getPassword() != userRepository.findById(user.getId()).orElse(null).getPassword())
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }
